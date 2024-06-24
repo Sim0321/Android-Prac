@@ -13,6 +13,8 @@
             <option value="$PROJECT_DIR$/app/call" />
             <option value="$PROJECT_DIR$/call" />
             <option value="$PROJECT_DIR$/kakaosignup" />
+            <option value="$PROJECT_DIR$/messenger" />
+            <option value="$PROJECT_DIR$/notification" />
             <option value="$PROJECT_DIR$/stopwatch" />
           </set>
         </option>
