@@ -42,6 +42,8 @@ class MainActivity : AppCompatActivity() {
         binding.viewpager.adapter = adapter
     }
 
+
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater = menuInflater
         inflater.inflate(R.menu.menu_main, menu)
