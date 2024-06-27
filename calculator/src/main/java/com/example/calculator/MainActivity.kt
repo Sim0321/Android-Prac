@@ -1,6 +1,7 @@
 package com.example.calculator
 
 import android.os.Bundle
+import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
@@ -29,46 +30,42 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         findView()
+        setNumberTextViewListener()
 
-        one.setOnClickListener{
-            input+= (it as TextView).text
-            result.text = input
+        ca.setOnClickListener{
+            input = ""
+            temp = ""
+            result.text = "0"
         }
-        two.setOnClickListener{
-            input+= (it as TextView).text
-            result.text = input
+
+        plus.setOnClickListener{
+            temp = result.text.toString()
+            result.text=""
+            input=""
         }
-        three.setOnClickListener{
-            input+= (it as TextView).text
-            result.text = input
+
+        equal.setOnClickListener {
+            val finalResult:String = (input.toInt() + temp.toInt()).toString()
+            result.text = finalResult
+            temp = finalResult
         }
-        four.setOnClickListener{
-            input+= (it as TextView).text
-            result.text = input
+
+    }
+
+    fun setNumberTextViewListener(){
+        val numberTextViewlist : List<TextView> = listOf(
+            one, two, three, four, five, six, seven ,eight, nine, zero
+        )
+
+        val listner = object : View.OnClickListener{
+            override fun onClick(v: View?) {
+                input+= (v as TextView).text
+                result.text = input
+            }
         }
-        five.setOnClickListener{
-            input+= (it as TextView).text
-            result.text = input
-        }
-        six.setOnClickListener{
-            input+= (it as TextView).text
-            result.text = input
-        }
-        seven.setOnClickListener{
-            input+= (it as TextView).text
-            result.text = input
-        }
-        eight.setOnClickListener{
-            input+= (it as TextView).text
-            result.text = input
-        }
-        nine.setOnClickListener{
-            input+= (it as TextView).text
-            result.text = input
-        }
-        zero.setOnClickListener{
-            input+= (it as TextView).text
-            result.text = input
+
+        numberTextViewlist.forEach {
+            it.setOnClickListener(listner)
         }
     }
 
