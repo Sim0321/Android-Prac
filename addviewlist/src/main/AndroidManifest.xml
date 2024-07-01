@@ -9,13 +9,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.KangAndroidLab">
         <activity
+            android:name=".listView"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="false" />
         <activity
             android:name=".DetailActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
-            android:name=".listView"
+            android:name=".RecyclerViewActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

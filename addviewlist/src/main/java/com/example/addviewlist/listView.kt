@@ -60,6 +60,8 @@ class listView : AppCompatActivity() {
     }
 }
 
+// AddView와 Listview의 차이는 ListView는 convertView로 재활용이 가능하다의 차이
+
 class ListViewAdapter(
     val bookList : MutableList<PhoneBook>,
     val layoutInflater: LayoutInflater,
