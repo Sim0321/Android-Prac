@@ -9,6 +9,7 @@ import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.ListView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
 class listView : AppCompatActivity() {
@@ -29,8 +30,32 @@ class listView : AppCompatActivity() {
             this
         )
 
+        // 어뎁터 장착
         val listView = findViewById<ListView>(R.id.listView)
         listView.adapter = adapter
+
+
+        // 리스너 장착
+        listView.setOnItemClickListener { parent, view, position, id ->
+            val book : PhoneBook = adapter.bookList.get(position)
+            val name = book.name
+            val number = book.number
+
+            Toast.makeText(
+                this,
+                name + " " + number,
+                Toast.LENGTH_LONG
+            ).show()
+        }
+
+        // 데이터 갱신 방법
+        findViewById<TextView>(R.id.addBook).setOnClickListener {
+            adapter.bookList.add(
+                PhoneBook("안녕 내 이름은 책", "안녕 내 번호는 번호")
+            )
+            adapter.notifyDataSetChanged()
+        }
+
 
     }
 }
@@ -56,19 +81,55 @@ class ListViewAdapter(
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        // 해당 번째 뷰를 리턴
-        val view = layoutInflater.inflate(R.layout.phonebook_item, null)
-        val image =  view.findViewById<ImageView>(R.id.image)
-        val name = view.findViewById<TextView>(R.id.name)
-        val number = view.findViewById<TextView>(R.id.number)
+
+
+        val view: View
+        val holder : ViewHolder
+
+        // 재활용 불가능
+        if(convertView == null){
+            view = layoutInflater.inflate(R.layout.phonebook_item, null)
+            holder = ViewHolder()
+
+            holder.bookImage = view.findViewById(R.id.image)
+            holder.name = view.findViewById(R.id.name)
+            holder.number = view.findViewById(R.id.number)
+
+            view.tag = holder
+        } else {
+            // 재활용 가능
+            holder = convertView.tag as ViewHolder
+            view = convertView
+
+        }
 
         val book = bookList.get(position)
-        image.setImageDrawable(
+
+        holder.bookImage?.setImageDrawable(
             context.resources.getDrawable(R.drawable.baduck, context.theme)
         )
-        name.text = book.name
-        number.text = book.number
+        holder.name?.text = book.name
+        holder.number?.text = book.number
+
+        // 해당 번째 뷰를 리턴
+//        val view = layoutInflater.inflate(R.layout.phonebook_item, null)
+//        val image =  view.findViewById<ImageView>(R.id.image)
+//        val name = view.findViewById<TextView>(R.id.name)
+//        val number = view.findViewById<TextView>(R.id.number)
+//
+//        val book = bookList.get(position)
+//        image.setImageDrawable(
+//            context.resources.getDrawable(R.drawable.baduck, context.theme)
+//        )
+//        name.text = book.name
+//        number.text = book.number
 
         return view
     }
+}
+
+class ViewHolder {
+    var bookImage : ImageView? = null
+    var name : TextView? = null
+    var number : TextView? = null
 }
