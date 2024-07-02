@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -23,7 +24,12 @@ class RecyclerViewActivity : AppCompatActivity() {
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
         // 어뎁터 장착
         recyclerView.adapter = RecyclerViewAdapter(bookList, LayoutInflater.from(this))
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true)
+//        recyclerView.layoutManager = GridLayoutManager(this, 3)
+
+
+
+
     }
 }
 
@@ -33,7 +39,7 @@ class RecyclerViewAdapter(
     var inflater: LayoutInflater
 ): RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>(){
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         // inner class
         // item view의 상세 뷰 컴포넌트를 홀드
         val bookImage: ImageView
@@ -44,6 +50,15 @@ class RecyclerViewAdapter(
             bookImage = itemView.findViewById(R.id.image)
             name = itemView.findViewById(R.id.name)
             number = itemView.findViewById(R.id.number)
+            itemView.setOnClickListener {
+                val position: Int = adapterPosition
+                val book = bookList.get(position)
+                Toast.makeText(
+                    itemView.context,
+                    "${book.name} ${book.number}",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
 
         }
     }
@@ -51,7 +66,7 @@ class RecyclerViewAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         // item view return
         val view = inflater.inflate(R.layout.phonebook_item, parent, false)
-        return RecyclerViewAdapter.ViewHolder(view)
+        return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
