@@ -7,6 +7,10 @@ android {
     namespace = "com.example.livedata"
     compileSdk = 34
 
+    viewBinding {
+        enable = true
+    }
+
     defaultConfig {
         applicationId = "com.example.livedata"
         minSdk = 24
