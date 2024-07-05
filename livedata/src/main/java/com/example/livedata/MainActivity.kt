@@ -2,20 +2,22 @@ package com.example.livedata
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import com.example.livedata.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private var value = 0
+     var value = 0
     override fun onCreate(savedInstanceState: Bundle?) {
-
-
-
-
         super.onCreate(savedInstanceState)
-//        setContentView(R.layout.activity_main)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        binding = DataBindingUtil.setContentView(this,R.layout.activity_main)
+        binding.varData = this
+
+        // 데이터 바인딩
+
+
+//        binding = ActivityMainBinding.inflate(layoutInflater)
+//        setContentView(binding.root)
 
 //        뷰 바인딩/데이터 바인딩 하지 않았을 때
 //        findViewById<TextView>(R.id.result).text = value.toString()
@@ -36,22 +38,36 @@ class MainActivity : AppCompatActivity() {
 //        }
 
 //        뷰 바인딩 사용
-        binding.result.text = value.toString()
+//        binding.result.text = value.toString()
+//
+//        binding.btnPlus.setOnClickListener {
+//            value += 1
+//            binding.result.text = value.toString()
+//        }
+//
+//        binding.btnMinus.setOnClickListener {
+//            value -= 1
+//            binding.result.text = value.toString()
+//        }
+//
+//        binding.btnDouble.setOnClickListener {
+//            value *= 2
+//            binding.result.text = value.toString()
+//        }
 
-        binding.btnPlus.setOnClickListener {
-            value += 1
-            binding.result.text = value.toString()
-        }
+    }
+    fun onPlusClick(){
+        value += 1
+        binding.invalidateAll()
+    }
 
-        binding.btnMinus.setOnClickListener {
-            value -= 1
-            binding.result.text = value.toString()
-        }
+    fun onMinusClick(){
+        value -= 1
+        binding.invalidateAll()
+    }
 
-        binding.btnDouble.setOnClickListener {
-            value *= 2
-            binding.result.text = value.toString()
-        }
-
+    fun onDoubleClick(){
+        value *=2
+        binding.invalidateAll()
     }
 }

@@ -7,7 +7,10 @@ android {
     namespace = "com.example.livedata"
     compileSdk = 34
 
-    viewBinding {
+//    viewBinding {
+//        enable = true
+//    }
+    dataBinding {
         enable = true
     }
 
