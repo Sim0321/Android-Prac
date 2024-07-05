@@ -104,3 +104,5 @@ class ChatRecyclerAdapter(
 
 
 class Chat(val message : String, val is_right : Boolean)
+
+}

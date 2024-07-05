@@ -4,12 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.kangandroidlab"
+    namespace = "com.example.retrofit"
     compileSdk = 34
 
-
     defaultConfig {
-        applicationId = "com.chaewoon.kangAndroidlab"
+        applicationId = "com.example.retrofit"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -46,9 +45,6 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-
-    val room_version = "2.6.1"
-
-    implementation("androidx.room:room-runtime:$room_version")
-    annotationProcessor("androidx.room:room-compiler:$room_version")
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.converter.gson)
 }
